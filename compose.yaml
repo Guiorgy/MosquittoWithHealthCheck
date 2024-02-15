@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mosquitto-hc-latest:
+    image: mosquitto-hc:latest
+    build:
+      dockerfile: Dockerfile
+      args:
+        - TAG=latest
+  mosquitto-hc-openssl:
+    image: mosquitto-hc:openssl
+    build:
+      dockerfile: Dockerfile
+      args:
+        - TAG=openssl
