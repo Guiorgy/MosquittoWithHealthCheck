@@ -30,6 +30,8 @@ docker build --build-arg TAG=latest -t mosquitto-hc:latest -f Dockerfile .
 docker build --build-arg TAG=2.0.18 -t mosquitto-hc:2.0.18 -f Dockerfile .
 ```
 
+**Note**: If you are on Windows, make sure that `docker-entrypoint.sh` and `check-health.sh` don't use the Carriage Return (`\r`) in there line endings, otherwise the build will fail.
+
 ## Environment Variables
 
 - **HEALTHCHECK_PORT**
