@@ -17,6 +17,9 @@ RUN chmod 554 docker-entrypoint.sh
 COPY check-health.sh /bin/
 RUN chmod 554 /bin/check-health.sh
 
+# fix line endings in case we are on Windows
+RUN sed -i -e 's/\r$//' /docker-entrypoint.sh /bin/check-health.sh
+
 # set the default healthcheck port
 ENV HEALTHCHECK_PORT="1880"
 
