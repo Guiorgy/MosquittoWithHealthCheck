@@ -1,6 +1,6 @@
 # Mosquitto Docker Image With Health Checks
 
-Containers built with this Dockerfile pull the [Eclipse Mosquitto](https://github.com/eclipse/mosquitto/tree/master/docker) image and extend it by adding a heanthcheck test.
+Containers built with this Dockerfile pull the [Eclipse Mosquitto](https://github.com/eclipse/mosquitto/tree/master/docker) images and extend them by adding a healthcheck test.
 
 ## Environment Variables
 
