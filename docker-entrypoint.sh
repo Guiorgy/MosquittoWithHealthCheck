@@ -8,7 +8,7 @@ config=$(cat /mosquitto/config/mosquitto.conf)
 
 # add a comment to the top of the configuration
 config_top="# auto-generated
-# modify /mosquitto/config/mosquitto.conf instead"
+# edit /mosquitto/config/mosquitto.conf instead"
 
 # make settings apply locally per-listener
 config_top="$config_top
