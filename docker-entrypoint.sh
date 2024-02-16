@@ -7,19 +7,27 @@ config_path='/mosquitto/config/mosquitto-with-healthcheck.conf'
 config=$(cat /mosquitto/config/mosquitto.conf)
 
 # add a comment to the top of the configuration
-config="# auto-generated
-# modify /mosquitto/config/mosquitto.conf instead
+config_top="# auto-generated
+# modify /mosquitto/config/mosquitto.conf instead"
 
-$config"
+# make settings apply locally per-listener
+config_top="$config_top
+
+per_listener_settings true"
 
 # add a healthcheck listener to the bottom of the configuration
-config="$config
-
-# listener used for health checks
+config_bottom="# listener used for health checks
 listener $HEALTHCHECK_PORT 127.0.0.1
 socket_domain ipv4
 sys_interval 60
 allow_anonymous true"
+
+# build the final modified config
+config="$config_top
+
+$config
+
+$config_bottom"
 
 # save the modified configuration
 echo "$config" > "$config_path"
