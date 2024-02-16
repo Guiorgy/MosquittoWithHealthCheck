@@ -32,8 +32,16 @@ $config
 
 $config_bottom"
 
+# make the previously generated modified configuration writable
+if [ -f "$config_path" ]; then
+  chmod +w "$config_path"
+fi
+
 # save the modified configuration
 echo "$config" > "$config_path"
+
+# make the modified configuration read-only (write protected)
+chmod -w "$config_path"
 
 # run the base mosquitto entrypoint script and filter out healthcheck messages from its logs
 /mosquitto-docker-entrypoint.sh "$@" 2>&1 |
