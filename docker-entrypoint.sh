@@ -28,9 +28,9 @@ echo "$config" > "$config_path"
 /mosquitto-docker-entrypoint.sh "$@" 2>&1 |
 while read -r line; do
   case "$line" in
-    *': New connection from 127.0.0.1:'*' on port '"$HEALTHCHECK_PORT"'.') ;; # drop
-    *': New client connected from 127.0.0.1:'*' as healthcheck '?'p2, c1, k60'?'.') ;; # drop
-    *': Client healthcheck disconnected.') ;; # drop
+    *'New connection from 127.0.0.1:'*' on port '"$HEALTHCHECK_PORT"'.') ;; # drop
+    *'New client connected from 127.0.0.1:'*' as healthcheck '?'p2, c1, k60'?'.') ;; # drop
+    *'Client healthcheck disconnected.') ;; # drop
     *) echo "$line" ;; # forward
   esac
 done
