@@ -10,17 +10,20 @@ config=$(cat /mosquitto/config/mosquitto.conf)
 config_top="# auto-generated
 # edit /mosquitto/config/mosquitto.conf instead"
 
-# make settings apply locally per-listener
-config_top="$config_top
+# don't modify the config if a username or password is set
+if [ -z "$HEALTHCHECK_USERNAME" ] && [ -z "$HEALTHCHECK_PASSWORD" ]; then
+  # make settings apply locally per-listener
+  config_top="$config_top
 
 per_listener_settings true"
 
-# add a healthcheck listener to the bottom of the configuration
-config_bottom="# listener used for health checks
+  # add a healthcheck listener to the bottom of the configuration
+  config_bottom="# listener used for health checks
 listener $HEALTHCHECK_PORT 127.0.0.1
 socket_domain ipv4
 sys_interval 60
 allow_anonymous true"
+fi
 
 # build the final modified config
 config="$config_top
@@ -38,6 +41,7 @@ while read -r line; do
   case "$line" in
     *'New connection from 127.0.0.1:'*' on port '"$HEALTHCHECK_PORT"'.') ;; # drop
     *'New client connected from 127.0.0.1:'*' as healthcheck '?'p2, c1, k60'?'.') ;; # drop
+    *'New client connected from 127.0.0.1:'*' as healthcheck '?'p2, c1, k60, u'"'"*"'"?'.') ;; # drop
     *'Client healthcheck disconnected.') ;; # drop
     *) echo "$line" ;; # forward
   esac

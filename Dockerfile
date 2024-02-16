@@ -20,6 +20,10 @@ RUN chmod 554 /bin/check-health.sh
 # set the default healthcheck port
 ENV HEALTHCHECK_PORT="1880"
 
+# set the default healthcheck username and password
+ENV HEALTHCHECK_USERNAME=""
+ENV HEALTHCHECK_PASSWORD=""
+
 # define the healthcheck tests parameters
 HEALTHCHECK --start-period=20s --start-interval=2s --interval=10s --timeout=3s --retries=2 CMD /bin/check-health.sh
 

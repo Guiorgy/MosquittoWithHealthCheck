@@ -2,6 +2,53 @@
 
 Containers built with this Dockerfile pull the [Eclipse Mosquitto](https://github.com/eclipse/mosquitto/tree/master/docker) image and extend it by adding a heanthcheck test.
 
+## Environment Variables
+
+- **HEALTHCHECK_PORT**
+
+  By default, a localhost listener on port `1880` is created to serve the healthcheck client. This can be overwritten by setting the `HEALTHCHECK_PORT` variable, for example:
+
+  - shell
+
+    ```bash
+    docker run --rm -it --env=HEALTHCHECK_PORT=1881 -d mosquitto-hc:latest
+    ```
+
+  - compose.yaml
+
+    ```yaml
+    ...
+    services:
+      mosquitto:
+        image: mosquitto-hc:latest
+        environment:
+          HEALTHCHECK_PORT: 1881
+        ...
+    ```
+
+- **HEALTHCHECK_USERNAME** and **HEALTHCHECK_PASSWORD**
+
+  By default, a new listener with anonumous login is created to serve the healthcheck client. This can be overwritten by setting the `HEALTHCHECK_USERNAME` and `HEALTHCHECK_PASSWORD` variables, in which case, an existing listener will be used instead of creating a new one. For example:
+
+  - shell
+
+    ```bash
+    docker run --rm -it --env=HEALTHCHECK_USERNAME=testUser --env=HEALTHCHECK_PASSWORD=testPaswd -d mosquitto-hc:latest
+    ```
+
+  - compose.yaml
+
+    ```yaml
+    ...
+    services:
+      mosquitto:
+        image: mosquitto-hc:latest
+        environment:
+          HEALTHCHECK_USERNAME: testUser
+          HEALTHCHECK_PASSWORD: testPaswd
+        ...
+    ```
+
 ## Building
 
 Run `docker-build.ps1` Powershell or `docker-build.sh` Bash script to build the latest image, or pass a specific tag (e.g. 2.0.18) to pull and buld that version. For example:
@@ -32,31 +79,3 @@ docker compose build
 ```
 
 **Note**: If you are on Windows, make sure that `docker-entrypoint.sh` and `check-health.sh` don't use the Carriage Return (`\r`) in there line endings, otherwise the build will fail.
-
-## Environment Variables
-
-- **HEALTHCHECK_PORT**
-
-  By default, a localhost listener on port `1880` is created to serve the healthcheck client. This can be overwritten by setting the `HEALTHCHECK_PORT` variable, for example:
-
-  - cli
-
-    ```bash
-    docker run --rm -it --env=HEALTHCHECK_PORT=1881 -d mosquitto-hc:2.0.18
-    ```
-
-  - compose.yaml
-
-    ```yaml
-    version: '3.8'
-    name: mosquitto
-    services:
-      mosquitto:
-        container_name: mosquitto
-        image: mosquitto-hc:latest
-        restart: unless-stopped
-        environment:
-          HEALTHCHECK_PORT: 1881
-        volumes:
-          - config:/mosquitto/config
-    ```
