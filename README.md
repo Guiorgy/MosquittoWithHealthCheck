@@ -49,6 +49,28 @@ Containers built with this Dockerfile pull the [Eclipse Mosquitto](https://githu
         ...
     ```
 
+- **HEALTHCHECK_TOPIC**
+
+  By default, the healthcheck client subscribes to the `$SYS/broker/uptime` topic. This can be overwritten by setting the `HEALTHCHECK_TOPIC` variable. This is useful if an existing listener is used that disables the `$SYS` hierarchy completely. **Note**, that subscribing to the selected topic should imidiately return a value, otherwise the healthcheck will time out. For example:
+
+  - shell
+
+    ```bash
+    docker run --rm -it --env=HEALTHCHECK_TOPIC=test/topic -d mosquitto-hc:latest
+    ```
+
+  - compose.yaml
+
+    ```yaml
+    ...
+    services:
+      mosquitto:
+        image: mosquitto-hc:latest
+        environment:
+          HEALTHCHECK_TOPIC: test/topic
+        ...
+    ```
+
 ## Building
 
 Run `docker-build.ps1` Powershell or `docker-build.sh` Bash script to build the latest image, or pass a specific tag (e.g. 2.0.18) to pull and buld that version. For example:

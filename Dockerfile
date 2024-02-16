@@ -24,6 +24,9 @@ ENV HEALTHCHECK_PORT="1880"
 ENV HEALTHCHECK_USERNAME=""
 ENV HEALTHCHECK_PASSWORD=""
 
+# set the default healthcheck topic
+ENV HEALTHCHECK_TOPIC="\$SYS/broker/uptime"
+
 # define the healthcheck tests parameters
 HEALTHCHECK --start-period=20s --start-interval=2s --interval=10s --timeout=3s --retries=2 CMD /bin/check-health.sh
 
