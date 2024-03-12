@@ -1,2 +1,5 @@
-# Auto detect text files and perform LF normalization
+# Force Unix style line endings for files that will be copied into the Dcoker image
+*.sh text eol=lf
+
+# Auto detect text files and perform LF normalization on the rest
 * text=auto

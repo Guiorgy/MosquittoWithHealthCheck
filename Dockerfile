@@ -14,9 +14,6 @@ COPY docker-entrypoint.sh /
 # copy the healthcheck script
 COPY check-health.sh /bin/
 
-# fix line endings in case we are on Windows
-RUN sed -i -e 's/\r$//' /docker-entrypoint.sh /bin/check-health.sh
-
 # change permissions of copied files
 RUN chmod 554 /mosquitto-docker-entrypoint.sh \
     && chmod 554 /docker-entrypoint.sh \
