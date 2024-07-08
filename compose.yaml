@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   mosquitto-hc-latest:
     image: mosquitto-hc:latest
