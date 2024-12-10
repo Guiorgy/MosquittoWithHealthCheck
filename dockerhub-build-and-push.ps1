@@ -32,6 +32,18 @@ function Build-Latest {
   docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:latest" --build-arg TAG="$Version" --push .
   Write-Host "Building openssl based on $Version-openssl"
   docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:openssl" --build-arg TAG="$Version-openssl" --push .
+
+  $MajorMinor = "$($Version.Major).$($Version.Minor)"
+  Write-Host "Building $MajorMinor based on $Version"
+  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:$MajorMinor" --build-arg TAG="$Version" --push .
+  Write-Host "Building $MajorMinor-openssl based on $Version-openssl"
+  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:$MajorMinor-openssl" --build-arg TAG="$Version-openssl" --push .
+
+  $Major = "$($Version.Major)"
+  Write-Host "Building $Major based on $Version"
+  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:$Major" --build-arg TAG="$Version" --push .
+  Write-Host "Building $Major-openssl based on $Version-openssl"
+  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:$Major-openssl" --build-arg TAG="$Version-openssl" --push .
 }
 
 # Separate the versions, convert them to [version] objects, and sort them
