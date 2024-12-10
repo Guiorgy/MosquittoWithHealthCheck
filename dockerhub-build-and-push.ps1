@@ -1,7 +1,7 @@
 param(
   [Parameter(Mandatory=$true)]
   [string] # Comma-separated list of versions
-  $VERSIONS
+  $Versions
 )
 
 # This script uses docker buildx. To create and enable buildx execute the following commands:
@@ -15,10 +15,10 @@ function Build-Version {
     $Version
   )
 
-  Write-Host "Building $VERSION based on $VERSION"
-  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:$VERSION" --build-arg TAG="$VERSION" --push .
-  Write-Host "Building $VERSION-openssl based on $VERSION-openssl"
-  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:$VERSION-openssl" --build-arg TAG="$VERSION-openssl" --push .
+  Write-Host "Building $Version based on $Version"
+  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:$Version" --build-arg TAG="$Version" --push .
+  Write-Host "Building $Version-openssl based on $Version-openssl"
+  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:$Version-openssl" --build-arg TAG="$Version-openssl" --push .
 }
 
 function Build-Latest {
@@ -28,22 +28,22 @@ function Build-Latest {
     $Version
   )
 
-  Write-Host "Building latest based on $VERSION"
-  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:latest" --build-arg TAG="$VERSION" --push .
-  Write-Host "Building openssl based on $VERSION-openssl"
-  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:openssl" --build-arg TAG="$VERSION-openssl" --push .
+  Write-Host "Building latest based on $Version"
+  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:latest" --build-arg TAG="$Version" --push .
+  Write-Host "Building openssl based on $Version-openssl"
+  docker buildx build --platform linux/amd64,linux/arm/v6,linux/arm64/v8 -t "guiorgy/mosquitto-hc:openssl" --build-arg TAG="$Version-openssl" --push .
 }
 
 # Separate the versions, convert them to [version] objects, and sort them
-$VERSIONS_SORTED = $VERSIONS -split ',' | ForEach-Object { [version]$_ } | Sort-Object
+$VersionsSorted = $Versions -split ',' | ForEach-Object { [version]$_ } | Sort-Object
 
 # Separate the old and the latest version
-$OLD_VERSIONS = $VERSIONS_SORTED[0..($VERSIONS_SORTED.Count - 2)]
-$LATEST_VERSION = $VERSIONS_SORTED[-1]
+$OldVersions = $VersionsSorted[0..($VersionsSorted.Count - 2)]
+$LatestVersion = $VersionsSorted[-1]
 
-foreach ($VERSION in $OLD_VERSIONS) {
-  Build-Version $VERSION
+foreach ($Version in $OldVersions) {
+  Build-Version $Version
 }
 
-Build-Version $LATEST_VERSION
-Build-Latest $LATEST_VERSION
+Build-Version $LatestVersion
+Build-Latest $LatestVersion
