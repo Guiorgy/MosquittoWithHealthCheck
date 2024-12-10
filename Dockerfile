@@ -3,7 +3,7 @@
 
 ARG TAG=latest
 
-From eclipse-mosquitto:$TAG
+FROM eclipse-mosquitto:$TAG
 
 # rename the original entrypoint script
 RUN mv docker-entrypoint.sh mosquitto-docker-entrypoint.sh
