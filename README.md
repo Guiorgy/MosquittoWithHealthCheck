@@ -78,8 +78,11 @@ Run `docker-build.ps1` Powershell or `docker-build.sh` Bash script to build the 
 - Powershell
 
     ```powershell
+    # by default the "latest" tag is built
     .\docker-build.ps1
+    # same as above
     .\docker-build.ps1 latest
+    # the "2.0.18" tag is built
     .\docker-build.ps1 2.0.18
     ```
 
@@ -87,15 +90,21 @@ Run `docker-build.ps1` Powershell or `docker-build.sh` Bash script to build the 
 
     ```bash
     chmod +x ./docker-build.sh
+    # by default the "latest" tag is built
     ./docker-build.sh
+    # same as above
     ./docker-build.sh latest
+    # the "2.0.18" tag is built
     ./docker-build.sh 2.0.18
     ```
 
 To build without using those scripts:
 
 ```bash
+# the "latest" tag is built
 docker build --build-arg TAG=latest -t mosquitto-hc:latest -f Dockerfile .
+# the "2.0.18" tag is built
 docker build --build-arg TAG=2.0.18 -t mosquitto-hc:2.0.18 -f Dockerfile .
+# the "latest" and "openssl" tags are built
 docker compose build
 ```
