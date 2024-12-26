@@ -5,17 +5,13 @@ ARG TAG=latest
 
 FROM eclipse-mosquitto:$TAG
 
-# rename the original entrypoint script
-RUN mv docker-entrypoint.sh mosquitto-docker-entrypoint.sh
+# copy the new entrypoint and healthcheck scripts
+COPY docker-entrypoint.sh check-health.sh /bin/
 
-# copy the new entrypoint script
-COPY docker-entrypoint.sh /
-
-# copy the healthcheck script
-COPY check-health.sh /bin/
-
-# change permissions of copied files
-RUN chmod 554 /mosquitto-docker-entrypoint.sh \
+# rename the original entrypoint script, move and change permissions of the copied scripts
+RUN mv /docker-entrypoint.sh /mosquitto-docker-entrypoint.sh \
+    && mv /bin/docker-entrypoint.sh /docker-entrypoint.sh \
+    && chmod 554 /mosquitto-docker-entrypoint.sh \
     && chmod 554 /docker-entrypoint.sh \
     && chmod 554 /bin/check-health.sh
 
