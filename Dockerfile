@@ -26,3 +26,14 @@ HEALTHCHECK --start-period=20s --start-interval=2s --interval=10s --timeout=3s -
 
 # run mosquitto with the modified configuration
 CMD ["/usr/sbin/mosquitto", "-c", "/mosquitto/config/mosquitto-with-healthcheck.conf"]
+
+ARG TAG=latest
+LABEL \
+    org.opencontainers.image.authors="Guiorgy" \
+    org.opencontainers.image.title="mosquitto-hc" \
+    org.opencontainers.image.description="Eclipse Mosquitto MQTT Broker With Docker Healthchecks" \
+    org.opencontainers.image.url="https://mosquitto.org/" \
+    org.opencontainers.image.documentation="https://mosquitto.org/documentation/" \
+    org.opencontainers.image.source="https://github.com/Guiorgy/MosquittoWithHealthCheck" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.version="$TAG"
