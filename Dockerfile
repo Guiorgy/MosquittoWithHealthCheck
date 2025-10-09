@@ -1,5 +1,4 @@
 # syntax=docker/dockerfile:1
-# todo: remove the above, once the 'start-interval' flag is fully supported by the current release
 
 ARG TAG=latest
 
