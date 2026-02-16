@@ -47,10 +47,9 @@ chmod -w "$config_path"
 /mosquitto-docker-entrypoint.sh "$@" 2>&1 |
 while read -r line; do
   case "$line" in
-    *'New connection from 127.0.0.1:'*' on port '"$HEALTHCHECK_PORT"'.') ;; # drop
-    *'New client connected from 127.0.0.1:'*' as healthcheck '?'p2, c1, k60'?'.') ;; # drop
-    *'New client connected from 127.0.0.1:'*' as healthcheck '?'p2, c1, k60, u'"'"*"'"?'.') ;; # drop
-    *'Client healthcheck disconnected.') ;; # drop
+    *' New connection from 127.0.0.1:'*' on port '"$HEALTHCHECK_PORT"'.') ;; # drop
+    *' New client connected from 127.0.0.1:'*' as healthcheck ('*').') ;; # drop
+    *' Client healthcheck [127.0.0.1:'*'] disconnected.') ;; # drop
     *) echo "$line" ;; # forward
   esac
 done
