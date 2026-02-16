@@ -12,17 +12,12 @@ config_top="# auto-generated
 
 # don't modify the config if a username or password is set
 if [ -z "$HEALTHCHECK_USERNAME" ] && [ -z "$HEALTHCHECK_PASSWORD" ]; then
-  # make settings apply locally per-listener
-  config_top="$config_top
-
-per_listener_settings true"
-
   # add a healthcheck listener to the bottom of the configuration
   config_bottom="# listener used for health checks
 listener $HEALTHCHECK_PORT 127.0.0.1
 socket_domain ipv4
 sys_interval 60
-allow_anonymous true"
+listener_allow_anonymous true"
 fi
 
 # build the final modified config
