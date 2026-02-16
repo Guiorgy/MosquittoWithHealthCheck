@@ -71,6 +71,9 @@ Containers built with this Dockerfile pull the [Eclipse Mosquitto](https://githu
         ...
     ```
 
+> [!NOTE]
+> You must ensure that the healthcheck client has appropriate access to the `HEALTHCHECK_TOPIC` topic.
+
 ## Building
 
 Run `docker-build.ps1` Powershell or `docker-build.sh` Bash script to build the latest image, or pass a specific tag (e.g. 2.0.18) to pull and buld that version. For example:
