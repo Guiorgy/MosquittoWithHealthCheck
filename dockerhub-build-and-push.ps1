@@ -1,11 +1,12 @@
 param(
   [Parameter(Mandatory = $true)]
   [object] # Comma-separated list of versions
+  [Alias('Version')]
   $Versions,
 
   [Parameter(Mandatory = $false)]
-  [Alias('WhatIf')]
   [switch]
+  [Alias('WhatIf')]
   $DryRun
 )
 
