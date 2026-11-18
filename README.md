@@ -108,8 +108,6 @@ To build without using those scripts:
 docker build --build-arg TAG=latest -t mosquitto-hc:latest -f Dockerfile .
 # the "2.1.4" tag is built
 docker build --build-arg TAG=2.1.4 -t mosquitto-hc:2.1.4 -f Dockerfile .
-# the "latest" and "openssl" tags are built
-docker compose build
 ```
 
 ## Publishing
