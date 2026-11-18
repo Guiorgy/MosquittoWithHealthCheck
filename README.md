@@ -111,3 +111,30 @@ docker build --build-arg TAG=2.1.4 -t mosquitto-hc:2.1.4 -f Dockerfile .
 # the "latest" and "openssl" tags are built
 docker compose build
 ```
+
+## Publishing
+
+> [!NOTE]
+> Only relevant to the maintainer(s).
+> The publish script is written in PowerShell only.
+
+To build and publish a specific version tag to the DockerHub registry use the `dockerhub-build-and-push.ps1` script:
+
+  > [!NOTE]
+  > This will also publish relevant floating tags, such as `latest`, `2`, `2.1`, etc.
+
+  ```powershell
+  .\dockerhub-build-and-push.ps1 2.1.4
+  ```
+
+More than one tag can be built and published by passing a comma-separated list of version tags:
+
+  ```powershell
+  .\dockerhub-build-and-push.ps1 2.1.2,2.1.4
+  ```
+
+The script also accepts a dry-run flag to double check the actions that will be performed before committing:
+
+  ```powershell
+  .\dockerhub-build-and-push.ps1 -DryRun -Versions 2.1.2,2.1.4
+  ```
