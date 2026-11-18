@@ -76,7 +76,7 @@ Containers built with this Dockerfile pull the [Eclipse Mosquitto](https://githu
 
 ## Building
 
-Run `docker-build.ps1` Powershell or `docker-build.sh` Bash script to build the latest image, or pass a specific tag (e.g. 2.0.18) to pull and buld that version. For example:
+Run `docker-build.ps1` Powershell or `docker-build.sh` Bash script to build the latest image, or pass a specific tag (e.g. `2.1.4`) to pull and buld that version. For example:
 
 - Powershell
 
@@ -85,8 +85,8 @@ Run `docker-build.ps1` Powershell or `docker-build.sh` Bash script to build the 
     .\docker-build.ps1
     # same as above
     .\docker-build.ps1 latest
-    # the "2.0.18" tag is built
-    .\docker-build.ps1 2.0.18
+    # the "2.1.4" tag is built
+    .\docker-build.ps1 2.1.4
     ```
 
 - Bash
@@ -97,8 +97,8 @@ Run `docker-build.ps1` Powershell or `docker-build.sh` Bash script to build the 
     ./docker-build.sh
     # same as above
     ./docker-build.sh latest
-    # the "2.0.18" tag is built
-    ./docker-build.sh 2.0.18
+    # the "2.1.4" tag is built
+    ./docker-build.sh 2.1.4
     ```
 
 To build without using those scripts:
@@ -106,8 +106,8 @@ To build without using those scripts:
 ```bash
 # the "latest" tag is built
 docker build --build-arg TAG=latest -t mosquitto-hc:latest -f Dockerfile .
-# the "2.0.18" tag is built
-docker build --build-arg TAG=2.0.18 -t mosquitto-hc:2.0.18 -f Dockerfile .
+# the "2.1.4" tag is built
+docker build --build-arg TAG=2.1.4 -t mosquitto-hc:2.1.4 -f Dockerfile .
 # the "latest" and "openssl" tags are built
 docker compose build
 ```
