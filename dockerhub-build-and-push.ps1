@@ -123,12 +123,12 @@ if ($Versions -is [string]) {
   $Versions = $Versions -split ',' | ForEach-Object { $_.Trim() }
 }
 
-if ($Versions -is [System.Collections.IEnumerable]) {
-  # Convert version strings to [version] objects and sort them
-  $VersionsSorted = $Versions | ForEach-Object { [version]$_ } | Sort-Object
-} else {
+if ($Versions -isnot [Collections.IEnumerable]) {
   throw "Unexpected Version parameter type: '$($Versions.GetType())'"
 }
+
+# Convert version strings to [version] objects and sort them
+$VersionsSorted = $Versions | ForEach-Object { [version]$_ } | Sort-Object
 
 # Separate the old and the latest version
 $OldVersions = $VersionsSorted[0..($VersionsSorted.Count - 2)]
