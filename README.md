@@ -1,5 +1,8 @@
 # Mosquitto Docker Image With Health Checks
 
+> [!NOTE]
+> This is the legacy branch where 2.0.x tags are built and published
+
 Containers built with this Dockerfile pull the [Eclipse Mosquitto](https://github.com/eclipse/mosquitto/tree/master/docker) images and extend them by adding a healthcheck test.
 
 ## Environment Variables
