@@ -1,6 +1,6 @@
 param(
   [Parameter(Mandatory = $true)]
-  [string] # Comma-separated list of versions
+  [object] # Comma-separated list of versions
   $Versions,
 
   [Parameter(Mandatory = $false)]
@@ -114,8 +114,17 @@ function Build-All {
   Run docker buildx build --platform 'linux/amd64,linux/arm/v6,linux/arm64/v8' -t "guiorgy/mosquitto-hc:latest" -t "guiorgy/mosquitto-hc:alpine" -t "guiorgy/mosquitto-hc:$Version-alpine" -t "guiorgy/mosquitto-hc:$MajorMinor-alpine" -t "guiorgy/mosquitto-hc:$Major" --build-arg TAG="$Version-alpine" --push .
 }
 
-# Separate the versions, convert them to [version] objects, and sort them
-$VersionsSorted = $Versions -split ',' | ForEach-Object { [version]$_ } | Sort-Object
+if ($Versions -is [string]) {
+  # Separate the comma-separated versions
+  $Versions = $Versions -split ',' | ForEach-Object { $_.Trim() }
+}
+
+if ($Versions -is [System.Collections.IEnumerable]) {
+  # Convert version strings to [version] objects and sort them
+  $VersionsSorted = $Versions | ForEach-Object { [version]$_ } | Sort-Object
+} else {
+  throw "Unexpected Version parameter type: '$($Versions.GetType())'"
+}
 
 # Separate the old and the latest version
 $OldVersions = $VersionsSorted[0..($VersionsSorted.Count - 2)]
