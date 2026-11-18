@@ -13,6 +13,9 @@ param(
 #   docker buildx create --name mosquitto-hc
 #   docker buildx use mosquitto-hc
 
+# Terminate the script immediately when an error occurs
+$ErrorActionPreference = 'Stop'
+
 # Conditionally execute or print the command and its arguments in dry-run
 function Run {
   [CmdletBinding()]
